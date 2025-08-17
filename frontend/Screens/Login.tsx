@@ -12,6 +12,7 @@ import { useState } from "react";
 import Feather from "@expo/vector-icons/Feather";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -74,8 +75,8 @@ export default function Login() {
           </Link>
         </View>
       </View>
-      <Text className="text-white font-bold text-center absolute bottom-6 w-full">
-        Grupo TCC
+      <Text className="text-white font-bold text-center absolute bottom-40 w-full">
+        TCC - UNIP
       </Text>
     </KeyboardAvoidingView>
   );
