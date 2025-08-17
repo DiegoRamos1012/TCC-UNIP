@@ -1,45 +1,82 @@
-import React from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { Link } from "expo-router";
+import { useState } from "react";
+import Feather from "@expo/vector-icons/Feather";
 
 export default function Login() {
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Function to toggle the password visibility state
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <View className="flex-1 items-center justify-center bg-[#B87B56] px-4">
-      <View className="w-full max-w-[350px] bg-[#F8F3EC] rounded-2xl p-6 items-center">
-        <Text className="text-2xl font-bold text-[#fff] mt-2 mb-4">
-          Nome do App
-        </Text>
-        <View className="w-40 h-40 rounded-full bg-[#B87B56] items-center justify-center -mt-20 mb-4 overflow-hidden border-4 border-[#B87B56]">
-          <Image
-            source={require("@/assets/images/Dog_Login.png")}
-            className="w-36 h-36"
-            resizeMode="contain"
-          />
-        </View>
-        <TextInput
-          placeholder="Email"
-          placeholderTextColor="#B87B56"
-          className="w-full bg-[#F8F3EC] border border-[#B87B56] rounded-lg px-4 py-3 mb-3 text-[#B87B56] font-semibold"
-        />
-        <TextInput
-          placeholder="Senha"
-          placeholderTextColor="#B87B56"
-          secureTextEntry
-          className="w-full bg-[#F8F3EC] border border-[#B87B56] rounded-lg px-4 py-3 mb-4 text-[#B87B56] font-semibold"
-        />
-        <TouchableOpacity className="w-full bg-[#8DC6CE] rounded-lg py-3 mb-3">
-          <Text className="text-white text-center font-bold text-base">
-            ENTRAR
+    <KeyboardAvoidingView
+      className="flex-1 bg-[#B87B56]"
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      <View className="flex-1 items-center justify-center px-4">
+        <View className="w-full min-h-[390px] max-w-[380px] bg-[#F8F3EC] rounded-3xl p-10 items-center shadow-lg">
+          <View className="w-32 h-32 rounded-full bg-[#B87B56] items-center justify-center -mt-20 mb-2 overflow-hidden border-4 border-[#B87B56]">
+            <Image
+              source={require("@/assets/images/Dog_Login.png")}
+              className="w-28 h-28"
+              resizeMode="contain"
+            />
+          </View>
+          <Text className="text-2xl font-bold text-[#ad3434] mb-6 mt-2">
+            PetHelper
           </Text>
-        </TouchableOpacity>
-        <Link href="/register" asChild>
-          <TouchableOpacity>
-            <Text className="text-[#B87B56] font-bold underline text-center">
-              Ainda não tem conta? Cadastre-se
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor="#B87B56"
+            className="w-full bg-[#F8F3EC] border border-[#B87B56] rounded-lg px-4 py-3 mb-3 text-[#B87B56] font-semibold"
+          />
+          <View className="w-full flex-row items-center bg-[#F8F3EC] border border-[#B87B56] rounded-lg px-3 mb-5">
+            <TextInput
+              placeholder="Senha"
+              placeholderTextColor="#B87B56"
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
+              className="flex-1 py-3 text-[#B87B56] font-semibold"
+              textAlign="left"
+            />
+            <TouchableOpacity onPress={toggleShowPassword}>
+              <Feather
+                name={showPassword ? "eye-off" : "eye"}
+                size={22}
+                color="#B87B56"
+              />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity className="w-full bg-[#8DC6CE] rounded-lg py-3 mb-4">
+            <Text className="text-white text-center font-bold text-base">
+              ENTRAR
             </Text>
           </TouchableOpacity>
-        </Link>
+          <Link href="/register" asChild>
+            <TouchableOpacity>
+              <Text className="text-[#B87B56] font-bold underline text-center">
+                Ainda não tem conta? Cadastre-se
+              </Text>
+            </TouchableOpacity>
+          </Link>
+        </View>
       </View>
-    </View>
+      <Text className="text-white font-bold text-center absolute bottom-6 w-full">
+        Grupo TCC
+      </Text>
+    </KeyboardAvoidingView>
   );
 }
