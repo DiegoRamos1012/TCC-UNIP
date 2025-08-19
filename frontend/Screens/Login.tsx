@@ -6,6 +6,7 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import { Link } from "expo-router";
 import { useState } from "react";
@@ -15,8 +16,18 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false)
 
-  // Function to toggle the password visibility state
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert("Erro: Por favor, preencha todos os campos");
+      return;
+    }
+
+    setLoading(true)
+  }
+
+  // Função de mudar visibilidade da senha
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -40,6 +51,8 @@ export default function Login() {
           </Text>
           <TextInput
             placeholder="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
             placeholderTextColor="#B87B56"
             className="w-full bg-[#F8F3EC] border border-[#B87B56] rounded-lg px-4 py-3 mb-3 text-[#B87B56] font-semibold"
           />
